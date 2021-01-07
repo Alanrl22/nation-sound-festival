@@ -59,7 +59,7 @@ body,
   font-size: var(--font-size);
   margin: 0;
   padding: 0;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
 }
 
@@ -107,7 +107,7 @@ ul {
   right: remCalc(22);
   top: remCalc(20);
   width: 50px;
-  z-index: 10;
+  z-index: 500;
 
   @media (min-width: 576px) {
     top: remCalc(50);
