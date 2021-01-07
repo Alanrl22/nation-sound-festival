@@ -3,13 +3,25 @@
     <h1>Programmation</h1>
     <div>
       <b-dropdown text="Genre" variant="outline-danger" class="m-2">
-        <b-dropdown-item href="#" v-for="card in cards" :key="card" >
-          {{ card.type }}
+        <b-dropdown-item value="All" @click="selectedType = 'All'">
+          <strong>Tous</strong>
+        </b-dropdown-item>
+        <b-dropdown-item
+          v-for="type in types"
+          :key="type"
+          :value="type"
+          @click="selectedType = type"
+        >
+          {{ type }}
         </b-dropdown-item>
       </b-dropdown>
     </div>
-    <div class="container">
-      <div class="card_prog" v-for="(card, index) in cards" :key="index">
+    <div class="container-fluid d-flex flex-wrap">
+      <div
+        class="card_prog col-md-6 col-xl-4"
+        v-for="(card, index) in filteredCategory"
+        :key="index"
+      >
         <div class="card_title">
           <h3>{{ card.artiste }}</h3>
           <span> {{ card.scene }} / {{ card.jour }} / {{ card.heure }} </span>
@@ -21,10 +33,11 @@
     </div>
   </div>
 </template>
-/***************************************************JS****************************************************************************** */
+/***************************************************JS******************************************************************************
+*/
 
 <script>
-let type = [
+let types = [
   "rap",
   "rock",
   "metal",
@@ -59,7 +72,7 @@ let jour = ["Vendredi", "Samedi", "Dimanche"];
 const cardsData = [
   {
     artiste: artiste[2],
-    type: type[0],
+    type: types[0],
     img:
       "https://media.virginradio.fr/article-4260166-head-f8/petit-biscuit.jpg",
     scene: scene[0],
@@ -68,7 +81,7 @@ const cardsData = [
   },
   {
     artiste: artiste[0],
-    type: type[1],
+    type: types[1],
     img:
       "https://www.parisladefense-arena.com/uploads/2018/10/3764-booba-orig-2.jpg",
     scene: scene[1],
@@ -77,7 +90,7 @@ const cardsData = [
   },
   {
     artiste: artiste[1],
-    type: type[2],
+    type: types[2],
     img:
       "https://cdn.radiofrance.fr/s3/cruiser-production/2019/04/05e9523a-428f-4798-ad07-c4abcc70acfa/801x410_vald_album_2019.jpg",
     scene: scene[2],
@@ -86,6 +99,7 @@ const cardsData = [
   },
   {
     artiste: artiste[5],
+    type: types[0],
     img:
       "https://static1.purepeople.com/articles/6/30/54/86/@/4322687-semi-exclusif-jean-schultheis-vendre-950x0-1.jpg",
     scene: scene[0],
@@ -96,31 +110,35 @@ const cardsData = [
 
 export default {
   data() {
-    selectedType: ''; 
-    return { 
-      cards: cardsData, 
-      types: type,
-      selectedType: "" };
+    return {
+      cards: cardsData,
+      types: types,
+      selectedType: "All",
+    };
   },
   computed: {
-		filteredType: function() {
-			var self = this;
-			var category = self.selectedType;
-			
-			if(category === "") {
-				console.log (self.cards);
-			} else {
-        console.log(ok) 
-        // self.cards.filter(function(type) {
-					//return artiste.category === category;
-				//});
-			}
-		}
-}
+    filteredCategory: function() {
+      let self = this;
+      let cardsArray = self.cards;
+      let selectedType = self.selectedType;
+
+      if (selectedType === "All") {
+        return cardsArray;
+      } else {
+        cardsArray = cardsArray.filter(function(card) {
+          if (card.type.indexOf(selectedType) !== -1) {
+            return card;
+          }
+        });
+      }
+      return cardsArray;
+    },
+  },
 };
 </script>
 
-/***************************************************CSS****************************************************************************** */
+/***************************************************CSS******************************************************************************
+*/
 
 <style lang="scss">
 .container {
@@ -128,56 +146,44 @@ export default {
 }
 
 .card_prog {
-  margin: 2em auto auto auto;
-  width: 80%;
-  height: 140px;
-  font-family: Helvetica;
+  margin: 2em auto auto;
+  width: 100%;
 }
 
 .card_title {
-  width: auto;
-  background: #fcf5be;
+  background: var(--yellow);
+  border-bottom: 2px solid var(--orange);
   display: flex;
-  border-bottom: 2px solid #ff8e4e;
   padding-top: 0.4em;
-}
+  width: 100%;
 
-.card_title h3 {
-  width: 92px;
-  margin: 0;
-  font-family: Raleway;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 12px;
-  color: #000000;
-}
+  h3 {
+    font-weight: 800;
+    font-size: 12px;
+    margin: 0;
+  }
 
-.card_title span {
-  width: 188px;
-  height: 18px;
-  left: 161px;
-  top: 181px;
-  font-family: Raleway;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 14px;
-  text-align: right;
-  margin-left: auto;
-  color: #000000;
+  span {
+    font-size: 12px;
+    height: 18px;
+    left: 161px;
+    line-height: 14px;
+    margin-left: auto;
+    text-align: right;
+    top: 181px;
+  }
 }
-
 .container_img {
-  height: 9em;
+  border: 2px solid var(--blue);
+  height: 10em;
+  margin-top: 0.5em;
   overflow: hidden;
-  bottom: 9em;
 }
 
 .card_img {
-  margin-top: 0.5em;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
   width: 100%;
-  height: 90%;
-  border: 2px solid var(--blue);
 }
 </style>
-
