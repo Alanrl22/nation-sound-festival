@@ -1,7 +1,7 @@
 <template>
   <div class="programmation">
     <h1>Programmation</h1>
-    <b-row id="brow">
+  <b-row id="brow">
       <b-dropdown text="Jour" variant="outline-danger">
         <b-dropdown-item value="All" @click="selectedType = 'All'">
           <strong>Tous</strong>
@@ -82,6 +82,25 @@
 */
 
 <script>
+
+
+let types = [
+  "rap",
+  "rock",
+  "metal",
+  "pop",
+  "electro",
+  "folk",
+  "jazz",
+  "alternatif",
+];
+
+let stage = ["Mainstage", "NationStage", "SoundStage"];
+let hour = ["18h", "19h", "20h", "21h", "22h", "23h", "00h", "01h00"];
+let day = ["Vendredi", "Samedi", "Dimanche"];
+
+
+
 import axios from "axios";
 
 let hours = ["15", "16", "17", "18", "19", "20", "21", "22", "23", "00", "01"];
