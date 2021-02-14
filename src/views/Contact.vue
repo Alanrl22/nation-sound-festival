@@ -199,7 +199,7 @@ export default {
   }
 
   #form_contact {
-    // @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400");
+    margin: auto;
     width: 700px;
 
     *,
@@ -331,17 +331,8 @@ export default {
       overflow: auto;
     }
     .vue-form input[type="submit"] {
-    //   border: none;
-    //   background: var(--pink);
-    //   border-radius: 0.25em;
-      padding: 8px 60px 10px;
-    //   color: #ffffff;
-    //   font-weight: bold;
       float: right;
-    //   cursor: pointer;
-    //   -webkit-font-smoothing: antialiased;
-    //   -moz-osx-font-smoothing: grayscale;
-    //   appearance: none;
+      padding: 8px 60px 10px;
     }
     .no-touch .vue-form input[type="submit"]:hover {
       background: #42a2e1;
