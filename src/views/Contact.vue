@@ -112,7 +112,7 @@ export default {
 
   mounted() {
     axios
-      .get("https://nation-sound.herokuapp.com/api/contacts")
+      .get("http://localhost:8000/api/contacts")
       .then((response) => (this.info = response.data))
       .catch((error) => console.log(error));
   },
